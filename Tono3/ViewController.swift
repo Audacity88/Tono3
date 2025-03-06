@@ -22,6 +22,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     var latestChineseTranslation: String = "..." // Chinese translation of the latest prediction
     var latestPinyin: String = "..." // Pinyin for the latest Chinese translation
     
+    // Store placed nodes to prevent duplicates
+    var placedNodes: [SCNNode] = []
+    
     // Audio Player for pronunciation
     var audioPlayer: AVAudioPlayer?
     
@@ -157,25 +160,131 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     // MARK: - Interaction
     
     @objc func handleTap(gestureRecognize: UITapGestureRecognizer) {
-        // HIT TEST : REAL WORLD
-        // Get Screen Centre
-        let screenCentre : CGPoint = CGPoint(x: self.sceneView.bounds.midX, y: self.sceneView.bounds.midY)
+        // Get tap location in the AR scene view
+        let location = gestureRecognize.location(in: sceneView)
         
-        let arHitTestResults : [ARHitTestResult] = sceneView.hitTest(screenCentre, types: [.featurePoint]) // Alternatively, we could use '.existingPlaneUsingExtent' for more grounded hit-test-points.
+        // Perform hit test against existing nodes
+        let hitTestResults = sceneView.hitTest(location, options: [:])
+        
+        // Check if we hit an existing node
+        if let hitNode = hitTestResults.first?.node, isNodeInPlacedNodes(hitNode) {
+            // We tapped on an existing node, play pronunciation
+            playPronunciation()
+            
+            // Highlight the node briefly to provide visual feedback
+            highlightNode(hitNode)
+            
+            return
+        }
+        
+        // If we didn't hit an existing node, perform a hit test against AR features
+        let arHitTestResults = sceneView.hitTest(location, types: [.featurePoint])
         
         if let closestResult = arHitTestResults.first {
             // Get Coordinates of HitTest
-            let transform : matrix_float4x4 = closestResult.worldTransform
-            let worldCoord : SCNVector3 = SCNVector3Make(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
+            let transform = closestResult.worldTransform
+            let worldCoord = SCNVector3Make(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
+            
+            // Check if there's already a node close to this position
+            if isPositionNearExistingNode(worldCoord) {
+                // If there's a node nearby, don't create a new one
+                // Find the closest node and play its pronunciation
+                if let closestNode = findClosestNode(to: worldCoord) {
+                    playPronunciation()
+                    highlightNode(closestNode)
+                }
+                return
+            }
             
             // Create 3D Text with Chinese translation and pinyin
-            let node : SCNNode = createNewBubbleParentNode()
+            let node = createNewBubbleParentNode()
             sceneView.scene.rootNode.addChildNode(node)
             node.position = worldCoord
             
-            // Play pronunciation audio if available
+            // Store the node to prevent duplicates
+            placedNodes.append(node)
+            
+            // Play pronunciation audio
             playPronunciation()
+            
+            // Store object data (would be saved to Core Data in a full implementation)
+            storeObjectData()
         }
+    }
+    
+    // Check if a node is in our placed nodes array
+    func isNodeInPlacedNodes(_ node: SCNNode) -> Bool {
+        // Check if the node or any of its parents are in our placed nodes array
+        var currentNode: SCNNode? = node
+        while currentNode != nil {
+            if placedNodes.contains(currentNode!) {
+                return true
+            }
+            currentNode = currentNode?.parent
+        }
+        return false
+    }
+    
+    // Check if a position is near an existing node
+    func isPositionNearExistingNode(_ position: SCNVector3) -> Bool {
+        let threshold: Float = 0.2 // 20cm threshold
+        
+        for node in placedNodes {
+            let distance = distance(position, node.position)
+            if distance < threshold {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    // Find the closest node to a position
+    func findClosestNode(to position: SCNVector3) -> SCNNode? {
+        var closestNode: SCNNode? = nil
+        var closestDistance: Float = Float.greatestFiniteMagnitude
+        
+        for node in placedNodes {
+            let dist = distance(position, node.position)
+            if dist < closestDistance {
+                closestDistance = dist
+                closestNode = node
+            }
+        }
+        
+        return closestNode
+    }
+    
+    // Calculate distance between two 3D points
+    func distance(_ a: SCNVector3, _ b: SCNVector3) -> Float {
+        let dx = a.x - b.x
+        let dy = a.y - b.y
+        let dz = a.z - b.z
+        return sqrt(dx*dx + dy*dy + dz*dz)
+    }
+    
+    // Highlight a node briefly to provide visual feedback
+    func highlightNode(_ node: SCNNode) {
+        // Save original scale
+        let originalScale = node.scale
+        
+        // Scale up
+        node.scale = SCNVector3(
+            originalScale.x * 1.2,
+            originalScale.y * 1.2,
+            originalScale.z * 1.2
+        )
+        
+        // Scale back down after a delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            node.scale = originalScale
+        }
+    }
+    
+    // Store object data (placeholder for Core Data implementation)
+    func storeObjectData() {
+        // In a full implementation, this would save the object to Core Data
+        print("Storing object: \(latestPrediction) - \(latestChineseTranslation) (\(latestPinyin))")
     }
     
     func createNewBubbleParentNode() -> SCNNode {
@@ -250,6 +359,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         bubbleNodeParent.addChildNode(englishNode)
         bubbleNodeParent.addChildNode(sphereNode)
         bubbleNodeParent.constraints = [billboardConstraint]
+        
+        // Store the current word data with the node
+        bubbleNodeParent.name = "\(latestPrediction)|\(latestChineseTranslation)|\(latestPinyin)"
         
         return bubbleNodeParent
     }
