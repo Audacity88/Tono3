@@ -110,7 +110,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     func setupAudioSession() {
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setCategory("AVAudioSessionCategoryPlayback")
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             print("Failed to set up audio session: \(error)")
