@@ -6,8 +6,8 @@
 
 - [x] Install and configure **Xcode** (latest version).  
 - [x] Create a new **iOS project** in Xcode using **Swift** and **UIKit**.  
-- [ ] Set up a **Git repository** for version control (GitHub or GitLab).  
-- [ ] Define **app bundle ID** and configure **App Store Connect** account.  
+- [x] Set up a **Git repository** for version control (GitHub or GitLab).  
+- [x] Define **app bundle ID** and configure **App Store Connect** account.  
 - [ ] Integrate **Swift Package Manager** for dependency management.  
 
 ---
@@ -16,19 +16,19 @@
 
 ### **2.1 ARKit and Core ML Integration**
 
-- [ ] Enable **ARKit** in the Xcode project settings.  
-- [ ] Import **ARKit** and **Core ML** frameworks.  
-- [ ] Download or create a pre-trained **Core ML model** for object recognition.  
-- [ ] Convert the model to **Core ML format** if necessary using Core ML Tools.  
-- [ ] Create an **ARSCNView** or **ARView** to display AR content.  
-- [ ] Build a simple AR scene to test object recognition capabilities.  
+- [x] Enable **ARKit** in the Xcode project settings.  
+- [x] Import **ARKit** and **Core ML** frameworks.  
+- [x] Download or create a pre-trained **Core ML model** for object recognition.  
+- [x] Convert the model to **Core ML format** if necessary using Core ML Tools.  
+- [x] Create an **ARSCNView** or **ARView** to display AR content.  
+- [x] Build a simple AR scene to test object recognition capabilities.  
 
 ---
 
 ### **2.2 Audio and Pronunciation Setup**
 
-- [ ] Enable **Microphone and Speech Recognition** capabilities in Xcode.  
-- [ ] Import **AVFoundation**, **AudioKit**, and **Speech** frameworks.  
+- [x] Enable **Microphone and Speech Recognition** capabilities in Xcode.  
+- [ ] Import **AVFoundation** and **Speech** frameworks.  
 - [ ] Install and configure **SpeechSuper API** for pronunciation assessment.  
 - [ ] Develop a prototype for **audio playback** using AVFoundation.  
 - [ ] Create a basic **speech recording and transcription** function using the Speech framework.  
@@ -69,15 +69,15 @@
 - [ ] Retrieve objects from **Core Data** based on SRS schedule.  
 - [ ] Develop a **custom SRS algorithm** in Swift (Leitner or SM-2).  
 - [ ] Implement a **point system** for correct answers.  
-- [ ] Provide **pronunciation feedback** using SpeechSuper and AudioKit.  
+- [ ] Provide **pronunciation feedback** using SpeechSuper API.  
 - [ ] Test **SRS functionality** for appropriate intervals and difficulty.  
 
 ---
 
 ### **3.3 Pronunciation Feedback**
 
-- [ ] Extract **pitch and tone** using AudioKit.  
-- [ ] Compare user pronunciation to **reference pitch** for tone accuracy.  
+- [ ] Integrate **SpeechSuper API** for comprehensive pronunciation assessment.  
+- [ ] Extract tone and pronunciation accuracy data from SpeechSuper API responses.  
 - [ ] Display **visual feedback** (green for correct, red for incorrect) using UIKit animations.  
 - [ ] Store **performance data** in Core Data for future quizzes.  
 
@@ -120,7 +120,7 @@
 
 ### **7. Offline Functionality**
 
-- [ ] Ensure **Core ML and AudioKit** work offline.  
+- [ ] Ensure **Core ML** works offline.  
 - [ ] Cache pronunciation files locally using **AVFoundation**.  
 - [ ] Validate **Core Data sync** without internet.  
 - [ ] Test **full app functionality** in airplane mode.  
@@ -176,9 +176,9 @@
 
 ### **Summary Checklist**
 
-**Total Steps:** 76  
+**Total Steps:** 74  
 - [ ] **Project Setup:** 5 steps  
-- [ ] **Core Technologies:** 16 steps  
+- [ ] **Core Technologies:** 14 steps  
 - [ ] **Core Features:** 21 steps  
 - [ ] **User Interface:** 6 steps  
 - [ ] **Performance and Offline:** 9 steps  

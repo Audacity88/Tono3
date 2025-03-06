@@ -34,7 +34,7 @@
 **Technologies:**  
 - **AR:** ARKit  
 - **Object Recognition:** Core ML  
-- **Pronunciation Assessment:** SpeechSuper API, AudioKit for tone analysis  
+- **Pronunciation Assessment:** SpeechSuper API for comprehensive pronunciation and tone analysis  
 - **Audio Playback:** AVFoundation  
 
 **Key Interactions:**
@@ -70,12 +70,12 @@
 
 **Description:**  
 - Assess user pronunciation in real-time using SpeechSuper API.  
-- Analyze tones using AudioKit for pitch detection.  
+- Analyze tones and pronunciation accuracy using SpeechSuper's comprehensive assessment.  
 - Provide corrective feedback if pronunciation or tone is incorrect.  
 
 **Technologies:**  
 - **Speech Recognition:** Speech framework, SpeechSuper API.  
-- **Pitch Analysis:** AudioKit.  
+- **Pronunciation Analysis:** SpeechSuper API for detailed feedback on tone, rhythm, and accuracy.  
 
 ---
 
@@ -114,7 +114,7 @@
 ### **4.3 Audio Handling**
 - **AVFoundation:** For playing and recording audio.  
 - **Speech Framework:** For speech-to-text transcription.  
-- **AudioKit:** For pitch detection and tone analysis.  
+- **SpeechSuper API:** For comprehensive pronunciation assessment and feedback.  
 
 ### **4.4 Data Storage**
 - **Core Data:** For storing user data, including object collection, SRS schedules, and achievements.  
@@ -174,7 +174,7 @@
 | AR Exploration                         | ARKit, Core ML                               | Real-time object detection and camera interaction   |
 | Pronunciation Teaching                 | AVFoundation                                 | Play audio files for correct pronunciations         |
 | User Speech Recording                  | AVFoundation                                 | Record user's pronunciation attempts                |
-| Pronunciation Assessment               | SpeechSuper API, AudioKit                    | Transcribe speech, assess tone                      |
+| Pronunciation Assessment               | SpeechSuper API                              | Transcribe speech, assess tone and pronunciation    |
 | Data Storage                           | Core Data                                    | Store user collection and SRS data                  |
 | Quiz Scheduling                        | Custom SRS (Swift)                           | Manage review intervals                             |
 | User Interface                         | UIKit                                        | Build UI, integrate ARKit views                     |
@@ -186,7 +186,7 @@
 | **Risk**                                      | **Impact** | **Mitigation Strategy**                                   |
 |-----------------------------------------------|------------|----------------------------------------------------------|
 | Object recognition accuracy                   | High       | Use pre-trained models and optimize Core ML integration   |
-| Pronunciation assessment accuracy             | Medium     | Fine-tune AudioKit settings and use SpeechSuper API       |
+| Pronunciation assessment accuracy             | Medium     | Optimize SpeechSuper API integration and parameters       |
 | Offline storage limitations                   | Medium     | Optimize Core Data usage                                  |
 | Performance on older devices                  | Medium     | Optimize ARKit and Core ML models for efficiency          |
 | UI complexity with UIKit                      | Medium     | Use storyboards and XIBs for visual layout when possible  |

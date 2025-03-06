@@ -21,14 +21,14 @@ Tono3 has two main modes:
   - Core ML for object recognition
   - AVFoundation for audio playback and recording
   - Speech framework for speech recognition
-  - AudioKit for tone analysis
+  - SpeechSuper API for pronunciation assessment
   - Core Data for local storage
 
 ## Features
 
 - Real-time object recognition using Core ML
 - Chinese vocabulary learning with proper pronunciation
-- Pronunciation feedback using speech recognition
+- Pronunciation feedback using SpeechSuper API
 - Spaced Repetition System (SRS) for optimized learning
 - Gamification elements (points, achievements, levels)
 - Offline functionality
