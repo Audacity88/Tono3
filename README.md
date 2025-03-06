@@ -1,73 +1,69 @@
-# CoreML-in-ARKit
-This simple project detects objects in Augmented Reality and displays 3D labels on top of them. This serves as a basic template for an ARKit project to use CoreML.
+# Tono3 - AR Gamified Chinese Learning App
+
+Tono3 is an augmented reality (AR) app that helps users learn Chinese by exploring their surroundings and practicing vocabulary through gamified interactions. The app uses ARKit and Core ML to detect objects in the real world and display their Chinese names, allowing users to learn vocabulary in an immersive and interactive way.
 
 ![image of scene with 3d labels on objects](post-media/giphy.gif)
 
-[Demo Video - on Youtube](https://www.youtube.com/watch?v=RjIbiAC8cBk)
+## Overview
 
-Model: Inception V3
+Tono3 has two main modes:
 
-Language: Swift 4.0
+1. **Explore Mode**: Users scan their environment with the camera, and the app identifies objects and displays their Chinese names, pinyin, and pronunciation. Users can practice pronouncing the words and receive feedback on their pronunciation.
 
-Written in: Xcode 9.0 GM (9A235) (Updated) ~~XCode 9 beta 3 (9M174d)~~
+2. **Practice Mode**: Users review previously learned words through quizzes, with a spaced repetition system (SRS) to optimize learning and retention.
 
-Content Technology: SceneKit
+## Technical Details
 
-Tested on iPhone 7 plus running iOS 11 beta 3 (15A5318g)
+- **Platform**: iOS
+- **Language**: Swift
+- **Frameworks**: 
+  - ARKit for augmented reality
+  - Core ML for object recognition
+  - AVFoundation for audio playback and recording
+  - Speech framework for speech recognition
+  - AudioKit for tone analysis
+  - Core Data for local storage
 
-Note: SceneKit can achieve a 60 FPS on iPhone7+ - though when it gets hot, it'll drop to 30 FPS.
+## Features
 
-## Instructions
+- Real-time object recognition using Core ML
+- Chinese vocabulary learning with proper pronunciation
+- Pronunciation feedback using speech recognition
+- Spaced Repetition System (SRS) for optimized learning
+- Gamification elements (points, achievements, levels)
+- Offline functionality
 
-You'll have to download "Inceptionv3.mlmodel" from [Apple's Machine Learning page](https://developer.apple.com/machine-learning/), and copy it into your XCode project. (As depicted in the following gif)
+## Project Status
 
-![Gif to show dragging and dropping of model into XCode](post-media/AddingMLModel.gif)
+This project is currently in development. See the [Checklist](docs/Checklist.md) for the current status and upcoming tasks.
 
-[_(Gif via Atomic14)_](https://github.com/atomic14/VisionCoreMLSample)
+## Getting Started
 
-If you're having issues, double check that the model is part of a target [(source: stackoverflow)](https://stackoverflow.com/questions/45884085/model-is-not-part-of-any-target-add-the-model-to-a-target-to-enable-generation).
+### Prerequisites
 
-## Footnotes
+- Xcode (latest version)
+- iOS device with ARKit support (iPhone 6s or later, running iOS 14+)
 
-- SceneKit Text Labels are expensive to render. Too many polygons (too much text, smoothness, characters) - can cause crashes. In future, SpriteKit would be more efficient for text-labels.
+### Installation
 
-- Not entirely certain if the code is actually transferring RGB data to the Vision Model (as opposed to YUV). Proof-of-concept-wise, it appears to work just fine with the Inception V3 model for now.
+1. Clone this repository
+   ```
+   git clone https://github.com/Audacity88/Tono3.git
+   ```
+2. Open the project in Xcode
+   ```
+   open Tono3.xcodeproj
+   ```
+3. Build and run the project on your iOS device
 
-- Whilst ARKit's FPS , is displayed - CoreML's speed is not. However, it does appear sufficiently fast for real-time ARKit applications.
+## Acknowledgments
 
-- Placement of the label is simply determined by the raycast screen centre-point to a ARKit feature-point. This could be altered for more stable placement.
+This project is based on the [CoreML-in-ARKit](https://github.com/hanleyweng/CoreML-in-ARKit) project by Hanley Weng, which provides a foundation for integrating Core ML with ARKit for object detection.
 
-## Building Blocks (Overview)
+## License
 
-### Get CoreML running in real time in ARKit
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-- There are some good tutorials / sample projects for getting CoreML running. See: [[ 1 ]](https://github.com/atomic14/VisionCoreMLSample) [[ 2 ]](https://github.com/yulingtianxia/Core-ML-Sample) [[ 3 ]](http://www.stringcode.co.uk/mlcamera/)
+---
 
-- What we do differently here is we're using ARKit's ARFrame as the image to be fed into CoreML.
-
-```
-let pixbuff : CVPixelBuffer? = (sceneView.session.currentFrame?.capturedImage)
-```
-
-- We also use Threading to continuously run requests to CoreML in realtime, and without disturbing ARKit / SceneView
-
-```
-let dispatchQueueML = DispatchQueue(label: "com.hw.dispatchqueueml")
-...
-loopCoreMLUpdate() // on viewLoad
-...
-func loopCoreMLUpdate() {
-    dispatchQueueML.async {
-        // 1. Run Update.
-        self.updateCoreML()
-        // 2. Loop this function.
-        self.loopCoreMLUpdate()
-    }
-}
-```
-
-### Add 3D Text
-
-- Add a Tap Gesture.
-- On Tap. Get the raycast centre point, translating it to appropriate coordinates.
-- Render 3D text at that location. Use the most likely object.
+*Note: This project is a work in progress. See the [Product Requirements Document](docs/Product%20Requirements%20Document%20(PRD).md) for detailed specifications.*
