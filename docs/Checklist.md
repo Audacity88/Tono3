@@ -30,7 +30,7 @@
 - [x] Enable **Microphone and Speech Recognition** capabilities in Xcode.  
 - [x] Import **AVFoundation** and **Speech** frameworks.  
 - [ ] Install and configure **SpeechSuper API** for pronunciation assessment.  
-- [ ] Develop a prototype for **audio playback** using AVFoundation.  
+- [x] Develop a prototype for **audio playback** using AVFoundation.  
 - [ ] Create a basic **speech recording and transcription** function using the Speech framework.  
 
 ---
