@@ -8,7 +8,7 @@
 - [x] Create a new **iOS project** in Xcode using **Swift** and **UIKit**.  
 - [x] Set up a **Git repository** for version control (GitHub or GitLab).  
 - [x] Define **app bundle ID** and configure **App Store Connect** account.  
-- [ ] Integrate **Swift Package Manager** for dependency management.  
+- [x] Integrate **Swift Package Manager** for dependency management.  
 
 ---
 
@@ -28,7 +28,7 @@
 ### **2.2 Audio and Pronunciation Setup**
 
 - [x] Enable **Microphone and Speech Recognition** capabilities in Xcode.  
-- [ ] Import **AVFoundation** and **Speech** frameworks.  
+- [x] Import **AVFoundation** and **Speech** frameworks.  
 - [ ] Install and configure **SpeechSuper API** for pronunciation assessment.  
 - [ ] Develop a prototype for **audio playback** using AVFoundation.  
 - [ ] Create a basic **speech recording and transcription** function using the Speech framework.  
@@ -52,9 +52,9 @@
 
 ### **3.1 Explore Mode**
 
-- [ ] Create a **UIViewController** for the camera interface using ARKit.  
-- [ ] Integrate **Core ML** for real-time object recognition.  
-- [ ] Design and implement **UIViews for popups** with Chinese names, pinyin, and pronunciation.  
+- [x] Create a **UIViewController** for the camera interface using ARKit.  
+- [x] Integrate **Core ML** for real-time object recognition.  
+- [x] Design and implement **UIViews for popups** with Chinese names, pinyin, and pronunciation.  
 - [ ] Implement **speech recording** and send audio to SpeechSuper API for assessment.  
 - [ ] Provide **feedback on pronunciation** (correct or retry).  
 - [ ] Save correctly pronounced objects to Core Data.  
